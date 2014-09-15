@@ -117,13 +117,19 @@ def calculate_nerd_scores():
 
 def read_nerd_scores():
   with open('data/pitcher_scores.json', 'r') as readfile:
-    scores = list(json.loads(readfile.read()))[:25]
+    scores = list(json.loads(readfile.read()))
 
-  for score in scores:
-    print score
+  print "MOST EXCITING"
+  for score in scores[:25]:
+    print "  %s: %s" % (score['pitcher'], score['score'])
 
+  print "LEAST EXCITING"
+  for score in sorted(scores, key=lambda x:x['score'], reverse=False)[:25]:
+    print "  %s: %s" % (score['pitcher'], score['score'])
+
+  print "TEAMS"
   with open('data/team_scores.json', 'r') as readfile:
     scores = list(json.loads(readfile.read()))
 
   for score in scores:
-    print score
+    print "  %s: %s" % (score['team'], score['score'])
